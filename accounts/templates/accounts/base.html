@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Lab 4{% endblock %}</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            color: #202938;
+        }
+
+        nav {
+            background: #18253d;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a, nav span {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 45px auto;
+            padding: 28px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px #0000000c;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 11px;
+            margin: 8px 0 16px;
+            border: 1px solid #ccd3df;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 11px 18px;
+            background: #315be8;
+            color: white;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .errorlist { color: #c62828; }
+        .card {
+            padding: 18px;
+            background: #f3f5f9;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="{% url 'report' %}"><strong>Lab 4</strong></a>
+        </div>
+
+        <div>
+            {% if user.is_authenticated %}
+                <span>{{ user.username }}</span>
+                <form method="post" action="{% url 'logout' %}"
+                      style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

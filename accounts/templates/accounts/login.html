@@ -1,0 +1,25 @@
+
+{% extends "accounts/base.html" %}
+
+{% block title %}Login | Lab 4{% endblock %}
+
+{% block content %}
+<h1>Welcome back</h1>
+<p>Enter your username and password.</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    {% if next %}
+        <input type="hidden" name="next" value="{{ next }}">
+    {% endif %}
+
+    <button type="submit">Login</button>
+</form>
+
+<p>
+    Don't have an account?
+    <a href="{% url 'register' %}">Register here</a>
+</p>
+{% endblock %}
